@@ -1,3 +1,8 @@
+//decalre variables
+leftWristX = 0;
+rightWristX = 0;
+difference = 139;
+
 function setup() {
     video = createCapture(VIDEO);
     video.size(550, 500);
@@ -13,6 +18,12 @@ function setup() {
 
 function draw() {
     background('#b6c0c2');
+
+    document.getElementById("spanFont").innerHTML = "Size of the font is : " + difference + "px";
+
+    fill('#2c1ec7');
+    text("Hi", 150, 350);
+    textSize(difference);
 }
 
 function modelLoaded() {
@@ -22,5 +33,10 @@ function modelLoaded() {
 function gotPoses(results) {
     if (results.length > 0) {
         console.log(results);
+
+        leftWristX = results[0].pose.leftWrist.x;
+        rightWristX = results[0].pose.rightWrist.x;
+        difference = floor(leftWristX - rightWristX);
+        console.log("Left Wrist X = " + leftWristX + " Right Wrist X = " + rightWristX + " Difference = " + difference);
     }
 }
